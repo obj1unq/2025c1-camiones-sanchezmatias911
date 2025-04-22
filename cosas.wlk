@@ -9,6 +9,8 @@ object knightRider {
 	method sosDeNivel(nivel) = self.nivelPeligrosidad() == nivel
 
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
+
+	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
 }
 
 

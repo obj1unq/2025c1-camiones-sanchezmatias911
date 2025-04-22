@@ -43,8 +43,15 @@ object camion {
 	method objetosQueSuperanPeligrosidad(nivel){
 		return cosas.filter({cosa => cosa.superoNivel()})
 	}
-	method objectosMasPeligrososQue(cosa){}
-	method puedeCircularEnRuta(nivelMaximoPeligrosidad){}
+	method objectosMasPeligrososQue(cosa) = 
+		cosas.filter({miCosa => miCosa.soyMasFuerteQue(cosa)})
+
+	method puedeCircularEnRuta(nivelMaximoPeligrosidad) = 
+		not self.estoyExcedido() AND self.funcion() // RENOMBRAR
+
+method estoyExcedido() = true
+
+method funcion() = true
 
 
 
