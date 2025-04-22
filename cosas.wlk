@@ -34,6 +34,15 @@ object robot{
 	method nivelPeligrosidad() = 30
 }
 
+object paqueteDeLadrillos{
+
+	var property ladrillos = 1
+	method peso() = 2 * ladrillos
+	method nivelPeligrosidad() = 
+
+	
+}
+
 
 
 
