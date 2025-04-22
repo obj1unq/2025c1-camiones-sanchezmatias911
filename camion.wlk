@@ -41,17 +41,29 @@ object camion {
 	method excedidoDePeso() = self.pesoTotal() > 2500
 
 	method objetosQueSuperanPeligrosidad(nivel){
-		return cosas.filter({cosa => cosa.superoNivel()})
+		return cosas.filter({cosa => cosa.superoNivel(nivel)})
 	}
+
 	method objectosMasPeligrososQue(cosa) = 
 		cosas.filter({miCosa => miCosa.soyMasFuerteQue(cosa)})
 
 	method puedeCircularEnRuta(nivelMaximoPeligrosidad) = 
-		not self.estoyExcedido() AND self.funcion() // RENOMBRAR
+		(not self.excedidoDePeso()) and 
+	not (self.noLLevoPeligrososDeNivel(nivelMaximoPeligrosidad)) // RENOMBRAR
 
-method estoyExcedido() = true
 
-method funcion() = true
+method noLLevoPeligrososDeNivel(nivelMaximoPeligrosidad){
+//busco no tener cosas que superen el nivel maximo de peligrosidad indicado
+
+	return self.objetosQueSuperanPeligrosidad(nivelMaximoPeligrosidad).isEmpty()
+
+
+
+
+
+
+
+}
 
 
 
