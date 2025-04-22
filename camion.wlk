@@ -29,9 +29,9 @@ object camion {
 
 	method elDeNivel(nivel) = cosas.find({cosa => cosa.sosDeNivel(nivel)})
 
-	method pesoTotal() = self.miPeso() + self.pesoTotalCarga()
+	method pesoTotal() = self.pesoCamion() + self.pesoTotalCarga()
 
-	method miPeso(){
+	method pesoCamion(){
 		return 1000
 	}
 

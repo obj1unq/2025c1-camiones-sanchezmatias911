@@ -19,12 +19,8 @@ object bumblebee {
 	method nivelPeligrosidad() = 
 		estado.nivelPeligrosidad()
 
-
+	
 	 var property estado = auto
-
-	
-
-	
 }
 object auto{
 	method nivelPeligrosidad() = 15
