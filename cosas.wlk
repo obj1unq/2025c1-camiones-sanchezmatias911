@@ -13,6 +13,28 @@ object knightRider {
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
 }
 
+object bumblebee {
+	method peso() { return 800  }
+
+	method nivelPeligrosidad() = 
+		estado.nivelPeligrosidad()
+
+
+	 var property estado = auto
+
+	
+
+	
+}
+object auto{
+	method nivelPeligrosidad() = 15
+	}
+object robot{
+
+	method nivelPeligrosidad() = 30
+}
+
+
 
 
 
