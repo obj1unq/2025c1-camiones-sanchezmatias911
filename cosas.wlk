@@ -14,6 +14,8 @@ object knightRider {
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
+
+	method bulto() = 1
 	// metodos polimorficos para agregar
 }
 
@@ -39,6 +41,8 @@ object bumblebee {
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
+	method bulto() = 2
+
 }
 object auto{
 	method nivelPeligrosidad() = 15
@@ -48,13 +52,15 @@ object robot{
 	method nivelPeligrosidad() = 30
 }
 
+/*
 object paqueteDeLadrillos{
 
-	var  property cantidadLadrillos = 1
+	var  ladrillosEmpaquetados = ladrillos
 
-	method peso() = self.pesoLadrillo() * cantidadLadrillos
+	method peso() = ladrillosEmpaquetados.pesoLadrillo() * ladrillosEmpaquetados.cantidad()
 
-	method pesoLadrillo() = 2
+	
+
 
 	method nivelPeligrosidad() = 2
 
@@ -70,9 +76,38 @@ object paqueteDeLadrillos{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
+	method bulto() {ladrillosEmpaquetados.queTipoDeBultoSoy()}
 
-	
 }
+
+object ladrillos {
+
+	var cantidad = 1
+
+	method pesoLadrillo() = 2
+
+	method cantidad() = cantidad 
+
+	method cantidad(_cant) {
+		self.validarCantidad(_cant)
+		cant = _cant
+	}
+
+	method validarCantidad(cant){
+		if(cant < 0){self.error("debes cargar al menos 1 ladrillo")}
+	}
+
+	method queTipoDeBultoSoy(){
+		// nunca cantidad sera < 1
+		if cantidad.between(1, 100) {return 1}
+		if cantidad.between(101, 300){return 2}
+		if (cantidad>300){return 3}
+	}
+}
+
+*/
+	
+
 object arenaAGranel{
 
 	var  property peso = 10
@@ -92,7 +127,7 @@ object arenaAGranel{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
-	
+	method bulto() = 1
 }
 
 
@@ -138,6 +173,8 @@ object bateriaAntiaerea{
 	method soyMasFuerteQue(cosa) = (self.nivelPeligrosidad()>cosa.nivelPeligrosidad())
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
+
+	method bulto() = if (misil.estoyEquipado()) 2 else 1 
 
 }
 
@@ -211,6 +248,12 @@ object contenedorPortuario{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
+	method bulto () = self.bultoContenedor() + self.bultoCarga()
+
+	method bultoContenedor() = 1 
+
+	method bultoCarga() = 0 // IMPLEMENTAR
+
 }
 
 object residuos{
@@ -230,6 +273,7 @@ object residuos{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
+	method bulto() = 1
 
 }
 
@@ -252,6 +296,8 @@ object embalajeDeSeguridad{
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
+
+	method bulto() = 2
 
 }
 
