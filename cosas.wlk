@@ -12,6 +12,8 @@ object knightRider {
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
 	// metodos polimorficos para agregar
 }
 
@@ -34,6 +36,9 @@ object bumblebee {
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
 }
 object auto{
 	method nivelPeligrosidad() = 15
@@ -63,6 +68,9 @@ object paqueteDeLadrillos{
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
 
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
+
 	
 }
 object arenaAGranel{
@@ -81,6 +89,9 @@ object arenaAGranel{
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
 	
 }
 
@@ -125,6 +136,9 @@ object bateriaAntiaerea{
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = (self.nivelPeligrosidad()>cosa.nivelPeligrosidad())
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
 }
 
 object misiles{
@@ -164,14 +178,14 @@ object contenedorPortuario{
 	method misNiveles() = cargaContenedor.map({carga => carga.nivelPeligrosidad()}).asSet()
 	
 	
- // CASO 2: sin maxIfEmpty
+    // CASO 2: sin maxIfEmpty
 	/*
 
 	method nivelPeligrosidad() = self.nivelMasPeligroso()
 
 	method nivelMasPeligroso() = if (self.tengoCarga()) {self.misNiveles().max()} else {0}
 
-	method misNiveles() = cargaContenedor.map({carga => carga.nivelPeligrosidad()}).asSet() // si esta vacio retorna []
+	method misNiveles() = cargaContenedor.map({carga => carga.nivelPeligrosidad()}).asSet() // si esta vacio retorna #{}
 
 	method tengoCarga() = not cargaContenedor.isEmpty()
 	*/
@@ -187,37 +201,62 @@ object contenedorPortuario{
 	//######### carga #########
 	method miPesoEsPar() = self.peso().even()
 	
-	method tienePeso(peso) = self.peso() == peso // RENOMBRAR FUNCION
+	method tienePeso(peso) = self.peso() == peso 
 
 	method sosDeNivel(nivel) = self.nivelPeligrosidad() == nivel
 
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
 }
 
-object residuos{}
+object residuos{
+	var property peso = 10
 
-object embalajeDeSeguridad{}
-
-
-
-/* AGREGAR A TODOS
-
-	method peso() =
-
-	method nivelPeligrosidad()=
+	method nivelPeligrosidad()= 200
 
 	method miPesoEsPar() = self.peso().even()
 	
-	method tienePeso(peso) = self.peso() == peso // RENOMBRAR FUNCION
+	method tienePeso(pesoDado) = self.peso() == pesoDado // RENOMBRAR FUNCION
 
 	method sosDeNivel(nivel) = self.nivelPeligrosidad() == nivel
 
 	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
 
 	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
+
+}
+
+object embalajeDeSeguridad{
+
+	const cosaEmbalada = bumblebee
+
+	method peso() = cosaEmbalada.peso()
+
+	method nivelPeligrosidad()= cosaEmbalada.nivelPeligrosidad() / 2
+
+	method miPesoEsPar() = self.peso().even()
 	
-	*/
+	method tienePeso(peso) = self.peso() == peso 
+
+	method sosDeNivel(nivel) = self.nivelPeligrosidad() == nivel
+
+	method superoNivel(nivel) = self.nivelPeligrosidad() > nivel
+
+	method soyMasFuerteQue(cosa) = self.nivelPeligrosidad()>cosa.nivelPeligrosidad()
+
+	method pesoEntre(min,max){self.peso().between(min, max)}
+
+}
+
+
+
+
 
 

@@ -1,6 +1,7 @@
+import camion.*
 import cosas.*
 
-describe "Testeo de objetos de carga del camion"{
+describe "Testeo de objetos que podria cargar el camion"{
     test "La bateriaAntiaerea pesa 300 y tiene nivel de peligrosidad 100
           si esta equipada con misiles"{
             bateriaAntiaerea.equiparMisiles()
@@ -35,4 +36,16 @@ describe "Testeo de objetos de carga del camion"{
     }
 
 
+}
+
+describe "Testeo del camion persé"{
+
+    //IMPLEMENTAR
+    test"s" {assert.equals(true,true)}
+
+    test "cargo el camion con bumbleebee y la bateria antiaerea y la cosa mas pesada es bumblebee"{
+        camion.cargar(bumblebee)
+        camion.cargar(bateriaAntiaerea)
+        assert.equals(bumblebee, camion.cosaMasPesada())
+    }
 }

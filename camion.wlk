@@ -58,14 +58,38 @@ method noLLevoPeligrososDeNivel(nivelMaximoPeligrosidad){
 //busco no tener cosas que superen el nivel maximo de peligrosidad indicado
 
 	return self.objetosQueSuperanPeligrosidad(nivelMaximoPeligrosidad).isEmpty()
-
-
-
-
-
-
-
 }
+
+// ############## agregados a camion ########
+
+method tieneAlgoQuePesaEntre(min,max){
+	return cosas.any({cosa => cosa.pesoEntre(min,max)}) // implementar pesoEntre en todos los demas objetos
+}
+
+//###########################################
+// preguntar si debo validar si tengo carga o usar maxIfEmpty
+method cosaMasPesada(){
+	self.validarSiHayCarga()
+	return cosas.max({cosa => cosa.peso()})
+}
+
+method validarSiHayCarga(){
+	if (not self.tengoCarga()){
+		self.error("No tengo carga para darte cosa mas pesada")
+	}
+}
+
+method tengoCarga() = not (cosas.isEmpty())
+
+// ###########################################
+
+method pesos() = cosas.map({cosa => cosa.peso()})
+
+method pesosSet() = self.pesos().asSet()
+
+
+
+method totalBultos(){}
 
 
 
