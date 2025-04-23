@@ -38,7 +38,9 @@ object camion {
 	method pesoTotalCarga() = cosas.sum({cosa => cosa.peso()})
 		
 
-	method excedidoDePeso() = self.pesoTotal() > 2500
+	method excedidoDePeso() = self.pesoTotal() > self.pesoLimite()
+
+	method pesoLimite() = 2500
 
 	method objetosQueSuperanPeligrosidad(nivel){
 		return cosas.filter({cosa => cosa.superoNivel(nivel)})
