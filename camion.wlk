@@ -16,6 +16,7 @@ object camion {
 		
 	method cargar(unaCosa) {
 		cosas.add(unaCosa)
+		unaCosa.realizaCambios()
 	}
 
 	method descargar(unaCosa){

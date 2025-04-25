@@ -16,6 +16,8 @@ object knightRider {
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
 	method bulto() = 1
+
+	method realizaCambios(){}
 	// metodos polimorficos para agregar
 }
 
@@ -42,6 +44,8 @@ object bumblebee {
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
 	method bulto() = 2
+
+	method realizaCambios(){self.equipado(robot)}
 
 }
 object auto{
@@ -89,6 +93,11 @@ object paqueteDeLadrillos{
 		if       (cantidad.between(1, 100))     {return 1}
 		else  if (cantidad.between(101, 300))   {return 2}
 		else                                    {return 3}
+	}
+
+	method realizaCambios(){
+		const nuevoValor = ladrilloEmpaquetado.cantidad() + 12
+		ladrilloEmpaquetado.cantidad(nuevoValor)
 	}
 	
 }
@@ -144,6 +153,11 @@ object arenaAGranel{
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
 	method bulto() = 1
+
+	method realizaCambios(){
+		const nuevoValor = self.peso() + 20
+		self.peso(nuevoValor)
+	}
 }
 
 
@@ -192,10 +206,14 @@ object bateriaAntiaerea{
 
 	method bulto() = if (misil.estoyEquipado()) 2 else 1 
 
+	method realizaCambios(){
+		self.equiparMisiles()
+	}
+
 }
 
 object misiles{
-	var equipado  = true 
+	var equipado  = false 
 
 	method equipar() { equipado = true}
 
@@ -270,6 +288,10 @@ object contenedorPortuario{
 
 	method bultoCarga() = cargaContenedor.sum({carga => carga.bulto()}) 
 
+	method realizaCambios(){
+		cargaContenedor.forEach({cosa => cosa.realizaCambios()})
+	}
+
 }
 
 object residuos{
@@ -290,6 +312,12 @@ object residuos{
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
 	method bulto() = 1
+
+	method realizaCambios(){
+		const nuevoPeso = self.peso() + 15
+		self.peso(nuevoPeso)
+
+	}
 
 }
 
@@ -314,6 +342,8 @@ object embalajeDeSeguridad{
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
 	method bulto() = 2
+
+	method realizaCambios(){}
 
 }
 

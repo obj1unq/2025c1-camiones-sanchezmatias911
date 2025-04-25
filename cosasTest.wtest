@@ -1,6 +1,10 @@
 import camion.*
 import cosas.*
 
+// ####################################################
+//        ESTE ARCHIVO DE TEST NO CONTEMBLA ACCIONES DE 
+//        LAS CARGAS AL SUBIRSE AL CAMION
+// ######################################################
 describe "Testeo de bateria que podria cargar el camion"{
     test "La bateriaAntiaerea pesa 300 y tiene nivel de peligrosidad 100
           si esta equipada con misiles"{
