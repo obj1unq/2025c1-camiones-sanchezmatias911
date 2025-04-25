@@ -46,15 +46,18 @@ describe "Testeo de conteinerPortuario"{
     test "si el contenedor esta vacio mi nivel de peligrosidad es 0"{
         assert.equals(0,contenedorPortuario.nivelPeligrosidad())
     }
-    test "Si el contenedor se carga con 2 bumblebee,1 bateria antiaerea equipada,1 paquete de 300 ladrillos
-          su bulto es 10"{
+    
+    test "Si el contenedor se carga con 2 bumblebee,1 bateria antiaerea equipada,1 paquete de 300 ladrillos su bulto es 10" {
+          
           contenedorPortuario.cargarContenedor(bumblebee)
           contenedorPortuario.cargarContenedor(bumblebee)
           contenedorPortuario.cargarContenedor(bateriaAntiaerea)
+
+          assert.equals(7, contenedorPortuario.bulto())
           paqueteDeLadrillos.prepararPaquete(300)
           contenedorPortuario.cargarContenedor(paqueteDeLadrillos)
 
-          assert.equals(10,contenedorPortuario.bulto())
+          assert.equals(9,contenedorPortuario.bulto())
 
 
     }
@@ -64,11 +67,42 @@ describe "Testeo de conteinerPortuario"{
 describe "Testeo del camion persé"{
 
     //IMPLEMENTAR
-    test"s" {assert.equals(true,true)}
 
     test "cargo el camion con bumbleebee y la bateria antiaerea y la cosa mas pesada es bumblebee"{
         camion.cargar(bumblebee)
         camion.cargar(bateriaAntiaerea)
         assert.equals(bumblebee, camion.cosaMasPesada())
+    }
+
+    test "cargo el camion con un conteiner con 2 bumblebee,1 bateriaAntiarea, y aparte un paquete de 150 ladrillos y sus pesos son [1700,300] "{
+        contenedorPortuario.cargarContenedor(bumblebee)
+        contenedorPortuario.cargarContenedor(bumblebee)
+        assert.equals(1700,contenedorPortuario.peso())
+
+        contenedorPortuario.cargarContenedor(bateriaAntiaerea)
+        assert.equals(2000, contenedorPortuario.peso())       
+        
+        paqueteDeLadrillos.prepararPaquete(150)
+        assert.equals(300,paqueteDeLadrillos.peso())
+
+        camion.cargar(contenedorPortuario)
+        camion.cargar(paqueteDeLadrillos)
+        assert.equals([2000,300],camion.pesos())
+    }
+
+    test "Cargo el camion con un conteiner con 2 bumblebee,1 bateria antiaerea, y aparte un paquete de 150 ladrillos y sus bultos es"{
+        contenedorPortuario.cargarContenedor(bumblebee)
+        contenedorPortuario.cargarContenedor(bumblebee)
+        contenedorPortuario.cargarContenedor(bateriaAntiaerea)
+
+        paqueteDeLadrillos.prepararPaquete(150)
+
+        camion.cargar(contenedorPortuario)
+        camion.cargar(paqueteDeLadrillos)
+
+        assert.equals(7,contenedorPortuario.bulto())
+        assert.equals(2,paqueteDeLadrillos.bulto())
+        assert.equals(9,camion.totalBultos())
+
     }
 }

@@ -82,7 +82,7 @@ object paqueteDeLadrillos{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
-	method bulto() {self.tipoDeBultoEnPaquete(ladrilloEmpaquetado.cantidad())}
+	method bulto() {return self.tipoDeBultoEnPaquete(ladrilloEmpaquetado.cantidad())}
 
 	
 	method tipoDeBultoEnPaquete(cantidad){

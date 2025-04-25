@@ -90,7 +90,7 @@ method pesosSet() = self.pesos().asSet()
 
 
 method totalBultos(){
-	cosas.sum({cosa => cosa.bulto()})
+	return cosas.sum({cosa => cosa.bulto()})
 }
 
 
