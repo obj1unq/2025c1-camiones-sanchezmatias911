@@ -52,13 +52,19 @@ object robot{
 	method nivelPeligrosidad() = 30
 }
 
-/*
+
+
+// LADRILLO
 object paqueteDeLadrillos{
 
-	var  ladrillosEmpaquetados = ladrillos
+	const  ladrilloEmpaquetado = ladrillo
 
-	method peso() = ladrillosEmpaquetados.pesoLadrillo() * ladrillosEmpaquetados.cantidad()
+	method peso() = ladrilloEmpaquetado.pesoLadrillo() * ladrilloEmpaquetado.cantidad()
 
+	method prepararPaquete(cantidad){
+		ladrillo.cantidad(cantidad)
+	}
+	
 	
 
 
@@ -76,11 +82,24 @@ object paqueteDeLadrillos{
 
 	method pesoEntre(min,max){self.peso().between(min, max)}
 
-	method bulto() {ladrillosEmpaquetados.queTipoDeBultoSoy()}
+	method bulto() {self.tipoDeBultoEnPaquete(ladrilloEmpaquetado.cantidad())}
 
+	
+	method tipoDeBultoEnPaquete(cantidad){
+		if       (cantidad.between(1, 100))     {return 1}
+		else  if (cantidad.between(101, 300))   {return 2}
+		else                                    {return 3}
+	}
+	
 }
 
-object ladrillos {
+
+
+object ladrillo {
+	/*
+		El ladrillo sabe decir su peso y la cantidad en el paquete 
+
+	*/
 
 	var cantidad = 1
 
@@ -88,24 +107,21 @@ object ladrillos {
 
 	method cantidad() = cantidad 
 
-	method cantidad(_cant) {
-		self.validarCantidad(_cant)
-		cant = _cant
+	method cantidad(_cantidad) {
+		self.validarCantidad(_cantidad)
+		cantidad = _cantidad
 	}
 
 	method validarCantidad(cant){
-		if(cant < 0){self.error("debes cargar al menos 1 ladrillo")}
+		if(cant < 0){self.error("Debes cargar al menos 1 ladrillo")}
 	}
 
-	method queTipoDeBultoSoy(){
-		// nunca cantidad sera < 1
-		if cantidad.between(1, 100) {return 1}
-		if cantidad.between(101, 300){return 2}
-		if (cantidad>300){return 3}
-	}
+	
+	
 }
+	// ################################################################################################	
+	
 
-*/
 	
 
 object arenaAGranel{
@@ -252,7 +268,7 @@ object contenedorPortuario{
 
 	method bultoContenedor() = 1 
 
-	method bultoCarga() = 0 // IMPLEMENTAR
+	method bultoCarga() = cargaContenedor.sum({carga => carga.bulto()}) 
 
 }
 

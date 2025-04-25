@@ -1,7 +1,7 @@
 import camion.*
 import cosas.*
 
-describe "Testeo de objetos que podria cargar el camion"{
+describe "Testeo de bateria que podria cargar el camion"{
     test "La bateriaAntiaerea pesa 300 y tiene nivel de peligrosidad 100
           si esta equipada con misiles"{
             bateriaAntiaerea.equiparMisiles()
@@ -10,15 +10,27 @@ describe "Testeo de objetos que podria cargar el camion"{
 
 
           }
+    test "El bulto de una bateria cargada con misiles es 2 y sin misiles es 1 "{
+        bateriaAntiaerea.equiparMisiles()
+        assert.equals(2,bateriaAntiaerea.bulto())
+        
+        bateriaAntiaerea.desequiparMisiles()
+        assert.equals(1,bateriaAntiaerea.bulto())
+    }
 
-    test "laBateriaAntiaerea pesa 200 y tiene nivel de peligrosidad 0
+     test "laBateriaAntiaerea pesa 200 y tiene nivel de peligrosidad 0
           si no esta equipada con misiles"{
             bateriaAntiaerea.desequiparMisiles()
             assert.equals(200,bateriaAntiaerea.peso())
             assert.equals(0,bateriaAntiaerea.nivelPeligrosidad())
           }
 
-    test "el contenedor se carga con un knight rider y 3 bumblebee. Su peso es x y su nivelDePeligrosidad y"{
+
+}
+describe "Testeo de conteinerPortuario"{
+   
+
+    test "el contenedor se carga con un knight rider y 3 bumblebee. Su peso es 3000 y su nivelDePeligrosidad 15"{
         contenedorPortuario.cargarContenedor(knightRider)
         contenedorPortuario.cargarContenedor(bumblebee)
         contenedorPortuario.cargarContenedor(bumblebee)
@@ -34,7 +46,18 @@ describe "Testeo de objetos que podria cargar el camion"{
     test "si el contenedor esta vacio mi nivel de peligrosidad es 0"{
         assert.equals(0,contenedorPortuario.nivelPeligrosidad())
     }
+    test "Si el contenedor se carga con 2 bumblebee,1 bateria antiaerea equipada,1 paquete de 300 ladrillos
+          su bulto es 10"{
+          contenedorPortuario.cargarContenedor(bumblebee)
+          contenedorPortuario.cargarContenedor(bumblebee)
+          contenedorPortuario.cargarContenedor(bateriaAntiaerea)
+          paqueteDeLadrillos.prepararPaquete(300)
+          contenedorPortuario.cargarContenedor(paqueteDeLadrillos)
 
+          assert.equals(10,contenedorPortuario.bulto())
+
+
+    }
 
 }
 
