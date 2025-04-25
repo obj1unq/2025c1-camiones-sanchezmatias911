@@ -99,9 +99,47 @@ method totalBultos(){
 //###################################
 // IMPLEMENTAR TRANSPORTE
 //##############################
-method transportar(destino,camino){}
-	
+
+/*
+requerimientos: 
+	*al llegar al almacen pasar los objetos de 
+	camion al almacen y borrar los propios del camion
+	*
+*/
+method transportar(destino,camino){
+	self.validarViaje(camino)
+	self.validarAlmacen()
+	self.transportarA(destino)
 }
 
+method validarAlmacen(){
+	if(not self.puedeAlmacenar()){
+		self.error("No puedo ir al almacen ahora")
+	}
+}
 
+method puedeAlmacenar(){return true}
+
+method validarViaje(camino){
+	if(not self.puedeTransitar(camino)){
+		self.error("No puedo transitar este camino")
+	}
+}
+
+method puedeTransitar(camino){return true}
+
+method transportarA(destino){}
+
+}
+object almacen{
+
+}
+
+object ruta9{
+
+}
+
+object caminosVecinales {
+
+}
 
