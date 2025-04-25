@@ -96,8 +96,10 @@ method totalBultos(){
 
 
 
-	
-
+//###################################
+// IMPLEMENTAR TRANSPORTE
+//##############################
+method transportar(destino,camino){}
 	
 }
 
