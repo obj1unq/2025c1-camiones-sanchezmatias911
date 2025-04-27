@@ -55,15 +55,28 @@ describe "Testeo de conteinerPortuario"{
           
           contenedorPortuario.cargarContenedor(bumblebee)
           contenedorPortuario.cargarContenedor(bumblebee)
+
+           assert.equals(5, contenedorPortuario.bulto())
+
+    
           contenedorPortuario.cargarContenedor(bateriaAntiaerea)
 
-          assert.equals(7, contenedorPortuario.bulto())
+          assert.equals(6, contenedorPortuario.bulto())
+          
           paqueteDeLadrillos.prepararPaquete(300)
           contenedorPortuario.cargarContenedor(paqueteDeLadrillos)
 
-          assert.equals(9,contenedorPortuario.bulto())
+          assert.equals(8,contenedorPortuario.bulto())
 
 
+    }
+
+    test "Si subo un paquete de ladrillos a un camion su cantidad aumenta en 12 "{
+        paqueteDeLadrillos.prepararPaquete(150)
+        camion.cargar(paqueteDeLadrillos)
+        assert.equals(162,paqueteDeLadrillos.cantidadPaquete())
+
+        
     }
 
 }
@@ -78,20 +91,27 @@ describe "Testeo del camion persé"{
         assert.equals(bumblebee, camion.cosaMasPesada())
     }
 
-    test "cargo el camion con un conteiner con 2 bumblebee,1 bateriaAntiarea, y aparte un paquete de 150 ladrillos y sus pesos son [1700,300] "{
+    test "cargo el camion con un conteiner con 2 bumblebee,1 bateriaAntiarea, y aparte un paquete de 150 ladrillos y sus pesos son [1900,300] "{
         contenedorPortuario.cargarContenedor(bumblebee)
         contenedorPortuario.cargarContenedor(bumblebee)
         assert.equals(1700,contenedorPortuario.peso())
 
+
         contenedorPortuario.cargarContenedor(bateriaAntiaerea)
-        assert.equals(2000, contenedorPortuario.peso())       
+        assert.equals(1900, contenedorPortuario.peso())       
+        
         
         paqueteDeLadrillos.prepararPaquete(150)
         assert.equals(300,paqueteDeLadrillos.peso())
-
+   
         camion.cargar(contenedorPortuario)
         camion.cargar(paqueteDeLadrillos)
-        assert.equals([2000,300],camion.pesos())
+
+        assert.equals(2000, contenedorPortuario.peso()) 
+        assert.equals(324,paqueteDeLadrillos.peso())
+
+
+        assert.equals([2000,324],camion.pesos())
     }
 
     test "Cargo el camion con un conteiner con 2 bumblebee,1 bateria antiaerea, y aparte un paquete de 150 ladrillos y sus bultos es"{
@@ -108,5 +128,40 @@ describe "Testeo del camion persé"{
         assert.equals(2,paqueteDeLadrillos.bulto())
         assert.equals(9,camion.totalBultos())
 
+    }
+}
+
+describe "Viajes a almacen y almacen 2"{
+
+    test "Se transporta a bumblebee por caminosVecinales al almacen. " {
+        camion.cargar(bumblebee)
+        camion.transportar(almacen, caminosVecinales)
+
+        assert.equals(#{}, camion.cosas())
+        assert.equals([bumblebee], almacen.deposito())
+    }
+    test "Se transporta 1 bumblebee, 1 arena a Granel y residuos por ruta9 al almacen "{
+        camion.cargar(bumblebee)
+        camion.cargar(arenaAGranel)
+        camion.cargar(residuos)
+
+        assert.that(ruta9.puedeCircular(camion))
+        assert.that(almacen.puedeAlmacenar(camion))
+
+        camion.transportar(almacen,ruta9)
+
+        assert.equals(#{}, camion.cosas())
+        assert.equals([bumblebee,arenaAGranel,residuos], almacen.deposito())
+
+    }
+
+    test "Se entregan bumblebee y arenaAGranel al almacen"{
+        const rutina = {  camion.cargar(bumblebee);
+                        camion.cargar(arenaAGranel);
+                        camion.transportar(almacen,ruta9)}
+
+        camion.entregaProgramada(rutina)    
+        assert.equals(#{}, camion.cosas())
+        assert.equals([bumblebee,arenaAGranel], almacen.deposito())                                    
     }
 }

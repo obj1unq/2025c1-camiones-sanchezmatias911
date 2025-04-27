@@ -70,7 +70,7 @@ object paqueteDeLadrillos{
 	}
 	
 	
-
+	method cantidadPaquete() = ladrilloEmpaquetado.cantidad() // para testear
 
 	method nivelPeligrosidad() = 2
 

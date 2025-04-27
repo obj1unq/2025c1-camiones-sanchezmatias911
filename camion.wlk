@@ -11,8 +11,11 @@ object camion {
 		REQUERIMIENTOS:
 			*No sobrepasar capacidad
 			*depende la peligrosidad puede llegar o no a un destino
+			*no hay cosas repetidas en el camion
 	*/
 	const property cosas = #{}
+
+	
 		
 	method cargar(unaCosa) {
 		cosas.add(unaCosa)
@@ -22,6 +25,8 @@ object camion {
 	method descargar(unaCosa){
 		cosas.remove(unaCosa)
 	}
+	// para remover todo
+	method entregaConfirmada(){cosas.clear()}
 
 	method todoPesoPar(peso) =  cosas.all({cosa => cosa.miPesoEsPar()} )
 		
@@ -107,39 +112,97 @@ requerimientos:
 	*
 */
 method transportar(destino,camino){
-	self.validarViaje(camino)
-	self.validarAlmacen()
-	self.transportarA(destino)
+	//self.validarPesoCamion()
+	self.validarDestino(destino)
+	self.validarCamino(camino)
+	
+	self.entregar(destino)
+	 //borra elementos de la coleccion de camion
 }
 
-method validarAlmacen(){
-	if(not self.puedeAlmacenar()){
-		self.error("No puedo ir al almacen ahora")
+method entregar(destino){
+	const entregas = cosas.copy()
+	destino.depositar(entregas)
+	self.entregaConfirmada() 
+}
+/*
+method validarPesoCamion(){
+	if ( self.excedidoDePeso()) {
+		self.error("El camion se encuentra escedido de peso")
+	}
+}*/
+
+method validarDestino(destino){
+	if( not  destino.puedeAlmacenar(self)) { 
+		self.error("No puedo almacenar la carga en el destino")
 	}
 }
 
-method puedeAlmacenar(){return true}
-
-method validarViaje(camino){
-	if(not self.puedeTransitar(camino)){
-		self.error("No puedo transitar este camino")
-	}
+method validarCamino(camino){
+	if (not  camino.puedeCircular(self)) {
+		self. error("No puedo transitar el camino.Nivel de peligrosidad mayor o excedido de peso")
+		}  
 }
 
-method puedeTransitar(camino){return true}
 
-method transportarA(destino){}
-
+method entregaProgramada(bloque){
+	bloque.apply()
+}
 }
 object almacen{
 
+    const deposito = []
+
+	method deposito() = deposito // PARA TESTEAR
+
+	var property bultoMaximo = 10
+
+	method depositar(cargaCamion){
+		deposito.addAll(cargaCamion)
+	}
+
+	method puedeAlmacenar(camion){
+		return camion.totalBultos() <= self.bultoMaximo()
+	}
 }
+//OTRO ALMACEN PARA TESTEAR
+object almacenDos{
+
+    const deposito = []
+
+	method deposito() = deposito // PARA TESTEAR
+
+	var property bultoMaximo = 3
+
+	method depositar(cargaCamion){
+		deposito.addAll(cargaCamion)
+	}
+
+	method puedeAlmacenar(camion){
+		return camion.totalBultos() <= self.bultoMaximo()
+	}
+}
+// ##############################
 
 object ruta9{
+	var property peligrosidad =  11
 
-}
+	method puedeCircular(camion){
+		return camion.puedeCircularEnRuta(self.peligrosidad())
+	}
+	
+		
+	}
+
 
 object caminosVecinales {
+
+	var property pesoMaximo = 4000
+
+	method puedeCircular(camion){
+		return camion.pesoTotal() <=  self.pesoMaximo()
+	}
+	
 
 }
 

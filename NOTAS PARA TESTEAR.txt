@@ -1,0 +1,9 @@
+* BATERIA ANTIAEREA:  - inicia desarmada
+                      - si se la sube a un contenedor sigue desarmada
+                      - solo se arma si se carga al camion o si se sube un contenedor con una bateria antiaerea
+                      - pesos  :  armada/desarmada   300/200
+                      - bulto  :  armada/desarmada   2/1
+
+
+* REPETIDOS  - si quiero mandar por ejemplo 3 bumblebees, debo meterlos a un contenedor,
+             - si cargo 3 en un camion, solo cuenta como 1 debido a que camion tiene set
